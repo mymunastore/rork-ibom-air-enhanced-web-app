@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { LinearGradient } from 'expo-linear-gradient';
 import { 
   ArrowRightLeft, 
   Calendar, 
@@ -21,7 +22,14 @@ import {
   Star,
   TrendingUp,
   Award,
-  Globe
+  Globe,
+  Shield,
+  Wifi,
+  Coffee,
+  Headphones,
+  Heart,
+  Phone,
+  Mail
 } from 'lucide-react-native';
 import { Colors, Typography, Spacing, BorderRadius, Shadow } from '@/constants/theme';
 import { Button } from '@/components/Button';
@@ -75,17 +83,37 @@ export default function BookScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
-        <View style={styles.heroSection}>
+        <LinearGradient
+          colors={['#0A6C3B', '#22C55E']}
+          style={styles.heroSection}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
           <View style={styles.heroOverlay}>
             <View style={styles.heroContent}>
-              <Text style={styles.logo}>Ibom Air</Text>
+              <View style={styles.logoContainer}>
+                <View style={styles.logoIcon}>
+                  <Plane size={32} color={Colors.white} />
+                </View>
+                <Text style={styles.logo}>Ibom Air</Text>
+              </View>
               <Text style={styles.tagline}>Your Wings to the World</Text>
               <Text style={styles.heroSubtitle}>
                 Connecting Nigeria to the world with comfort and reliability
               </Text>
+              <View style={styles.heroFeatures}>
+                <View style={styles.heroFeature}>
+                  <Shield size={16} color={Colors.white} />
+                  <Text style={styles.heroFeatureText}>Safe & Secure</Text>
+                </View>
+                <View style={styles.heroFeature}>
+                  <Clock size={16} color={Colors.white} />
+                  <Text style={styles.heroFeatureText}>On-Time Performance</Text>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
+        </LinearGradient>
 
         {/* Search Card */}
         <Card style={styles.searchCard}>
@@ -199,28 +227,69 @@ export default function BookScreen() {
 
         {/* Quick Stats */}
         <View style={styles.statsSection}>
+          <Text style={styles.statsTitle}>Why Choose Ibom Air</Text>
           <View style={styles.statsGrid}>
-            <View style={styles.statCard}>
-              <MapPin size={24} color={Colors.primary} />
+            <TouchableOpacity style={styles.statCard}>
+              <View style={styles.statIconContainer}>
+                <MapPin size={24} color={Colors.primary} />
+              </View>
               <Text style={styles.statNumber}>7</Text>
               <Text style={styles.statLabel}>Destinations</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Clock size={24} color={Colors.primary} />
+              <Text style={styles.statDescription}>Across Nigeria & Ghana</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.statCard}>
+              <View style={styles.statIconContainer}>
+                <Clock size={24} color={Colors.primary} />
+              </View>
               <Text style={styles.statNumber}>95%</Text>
               <Text style={styles.statLabel}>On-Time</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Star size={24} color={Colors.primary} />
+              <Text style={styles.statDescription}>Punctuality Record</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.statCard}>
+              <View style={styles.statIconContainer}>
+                <Star size={24} color={Colors.primary} />
+              </View>
               <Text style={styles.statNumber}>4.8</Text>
               <Text style={styles.statLabel}>Rating</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Award size={24} color={Colors.primary} />
+              <Text style={styles.statDescription}>Customer Satisfaction</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.statCard}>
+              <View style={styles.statIconContainer}>
+                <Award size={24} color={Colors.primary} />
+              </View>
               <Text style={styles.statNumber}>50K+</Text>
               <Text style={styles.statLabel}>Members</Text>
-            </View>
+              <Text style={styles.statDescription}>Ibom Flyer Program</Text>
+            </TouchableOpacity>
           </View>
+        </View>
+
+        {/* Services Section */}
+        <View style={styles.servicesSection}>
+          <Text style={styles.sectionTitle}>Premium Services</Text>
+          <Text style={styles.sectionSubtitle}>Experience comfort at every altitude</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.servicesScroll}>
+            <View style={styles.serviceCard}>
+              <Wifi size={32} color={Colors.primary} />
+              <Text style={styles.serviceTitle}>Free Wi-Fi</Text>
+              <Text style={styles.serviceDescription}>Stay connected throughout your journey</Text>
+            </View>
+            <View style={styles.serviceCard}>
+              <Coffee size={32} color={Colors.primary} />
+              <Text style={styles.serviceTitle}>Premium Dining</Text>
+              <Text style={styles.serviceDescription}>Delicious meals crafted by top chefs</Text>
+            </View>
+            <View style={styles.serviceCard}>
+              <Headphones size={32} color={Colors.primary} />
+              <Text style={styles.serviceTitle}>Entertainment</Text>
+              <Text style={styles.serviceDescription}>Latest movies and music selection</Text>
+            </View>
+            <View style={styles.serviceCard}>
+              <Heart size={32} color={Colors.primary} />
+              <Text style={styles.serviceTitle}>Care Plus</Text>
+              <Text style={styles.serviceDescription}>Special assistance and priority service</Text>
+            </View>
+          </ScrollView>
         </View>
 
         {/* Popular Destinations */}
@@ -251,61 +320,134 @@ export default function BookScreen() {
         </View>
 
         {/* Ibom Flyer Program */}
-        <Card style={styles.loyaltyCard}>
-          <View style={styles.loyaltyHeader}>
-            <Award size={32} color={Colors.tierGreen} />
-            <View style={styles.loyaltyContent}>
-              <Text style={styles.loyaltyTitle}>Join Ibom Flyer</Text>
-              <Text style={styles.loyaltySubtitle}>Earn points and enjoy exclusive benefits</Text>
+        <LinearGradient
+          colors={[Colors.primary + '10', Colors.secondary + '10']}
+          style={styles.loyaltySection}
+        >
+          <Card style={styles.loyaltyCard}>
+            <View style={styles.loyaltyHeader}>
+              <LinearGradient
+                colors={[Colors.tierGreen, Colors.tierOrange]}
+                style={styles.loyaltyIconContainer}
+              >
+                <Award size={32} color={Colors.white} />
+              </LinearGradient>
+              <View style={styles.loyaltyContent}>
+                <Text style={styles.loyaltyTitle}>Join Ibom Flyer</Text>
+                <Text style={styles.loyaltySubtitle}>Earn points and enjoy exclusive benefits</Text>
+                <Text style={styles.loyaltyDescription}>
+                  Get rewarded for every flight with our three-tier loyalty program
+                </Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.loyaltyTiers}>
-            <View style={styles.tierItem}>
-              <View style={[styles.tierBadge, { backgroundColor: Colors.tierGreen }]} />
-              <Text style={styles.tierName}>Green</Text>
+            <View style={styles.loyaltyTiers}>
+              <TouchableOpacity style={styles.tierItem}>
+                <LinearGradient
+                  colors={[Colors.tierGreen, Colors.tierGreen + '80']}
+                  style={styles.tierBadge}
+                >
+                  <Text style={styles.tierBadgeText}>G</Text>
+                </LinearGradient>
+                <Text style={styles.tierName}>Green</Text>
+                <Text style={styles.tierBenefits}>Priority check-in</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tierItem}>
+                <LinearGradient
+                  colors={[Colors.tierOrange, Colors.tierOrange + '80']}
+                  style={styles.tierBadge}
+                >
+                  <Text style={styles.tierBadgeText}>O</Text>
+                </LinearGradient>
+                <Text style={styles.tierName}>Orange</Text>
+                <Text style={styles.tierBenefits}>Extra baggage</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tierItem}>
+                <LinearGradient
+                  colors={[Colors.tierTop, Colors.tierTop + '80']}
+                  style={styles.tierBadge}
+                >
+                  <Text style={styles.tierBadgeText}>T</Text>
+                </LinearGradient>
+                <Text style={styles.tierName}>Top</Text>
+                <Text style={styles.tierBenefits}>Lounge access</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.tierItem}>
-              <View style={[styles.tierBadge, { backgroundColor: Colors.tierOrange }]} />
-              <Text style={styles.tierName}>Orange</Text>
+            <View style={styles.loyaltyActions}>
+              <Button
+                title="Join Now"
+                onPress={() => router.push('/auth/register')}
+                size="small"
+                style={styles.loyaltyButton}
+              />
+              <Button
+                title="Learn More"
+                onPress={() => {}}
+                variant="outline"
+                size="small"
+                style={styles.loyaltyButton}
+              />
             </View>
-            <View style={styles.tierItem}>
-              <View style={[styles.tierBadge, { backgroundColor: Colors.tierTop }]} />
-              <Text style={styles.tierName}>Top</Text>
-            </View>
-          </View>
-          <Button
-            title="Learn More"
-            onPress={() => {}}
-            variant="outline"
-            size="small"
-            style={styles.loyaltyButton}
-          />
-        </Card>
+          </Card>
+        </LinearGradient>
 
         {/* Latest Updates */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Latest Updates</Text>
             <Text style={styles.sectionSubtitle}>Stay informed with our latest news</Text>
+            <TouchableOpacity style={styles.viewAllButton}>
+              <Text style={styles.viewAllText}>View All</Text>
+              <TrendingUp size={16} color={Colors.primary} />
+            </TouchableOpacity>
           </View>
           {newsItems.slice(0, 2).map((news) => (
-            <Card key={news.id} style={styles.newsCard}>
-              <View style={styles.newsHeader}>
-                <View style={styles.newsCategoryBadge}>
-                  <Text style={styles.newsCategory}>{news.category}</Text>
+            <TouchableOpacity key={news.id} activeOpacity={0.8}>
+              <Card style={styles.newsCard}>
+                <View style={styles.newsImageContainer}>
+                  <LinearGradient
+                    colors={[Colors.primary, Colors.secondary]}
+                    style={styles.newsImage}
+                  >
+                    <TrendingUp size={24} color={Colors.white} />
+                  </LinearGradient>
                 </View>
-                <Text style={styles.newsDate}>
-                  {new Date(news.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                </Text>
-              </View>
-              <Text style={styles.newsTitle}>{news.title}</Text>
-              <Text style={styles.newsExcerpt}>{news.excerpt}</Text>
-              <TouchableOpacity style={styles.newsReadMore}>
-                <Text style={styles.newsReadMoreText}>Read More</Text>
-                <TrendingUp size={14} color={Colors.primary} />
-              </TouchableOpacity>
-            </Card>
+                <View style={styles.newsContent}>
+                  <View style={styles.newsHeader}>
+                    <View style={styles.newsCategoryBadge}>
+                      <Text style={styles.newsCategory}>{news.category}</Text>
+                    </View>
+                    <Text style={styles.newsDate}>
+                      {new Date(news.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </Text>
+                  </View>
+                  <Text style={styles.newsTitle}>{news.title}</Text>
+                  <Text style={styles.newsExcerpt}>{news.excerpt}</Text>
+                  <View style={styles.newsReadMore}>
+                    <Text style={styles.newsReadMoreText}>Read More</Text>
+                    <TrendingUp size={14} color={Colors.primary} />
+                  </View>
+                </View>
+              </Card>
+            </TouchableOpacity>
           ))}
+        </View>
+
+        {/* Contact & Support */}
+        <View style={styles.contactSection}>
+          <Text style={styles.sectionTitle}>Need Help?</Text>
+          <Text style={styles.sectionSubtitle}>We&apos;re here to assist you 24/7</Text>
+          <View style={styles.contactGrid}>
+            <TouchableOpacity style={styles.contactCard}>
+              <Phone size={24} color={Colors.primary} />
+              <Text style={styles.contactTitle}>Call Us</Text>
+              <Text style={styles.contactInfo}>+234 700 IBOM AIR</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.contactCard}>
+              <Mail size={24} color={Colors.primary} />
+              <Text style={styles.contactTitle}>Email</Text>
+              <Text style={styles.contactInfo}>support@ibomair.com</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Date Pickers */}
@@ -377,13 +519,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   heroSection: {
-    height: 280,
-    backgroundColor: Colors.primary,
+    height: 320,
     position: 'relative',
   },
   heroOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(10, 108, 59, 0.9)',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: Spacing['3xl'],
@@ -391,8 +532,22 @@ const styles = StyleSheet.create({
   heroContent: {
     alignItems: 'center',
   },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Spacing.md,
+  },
+  logoIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: Spacing.md,
+  },
   logo: {
-    fontSize: Typography.fontSize['5xl'],
+    fontSize: Typography.fontSize['4xl'],
     fontWeight: Typography.fontWeight.bold,
     color: Colors.white,
     letterSpacing: -1,
@@ -408,8 +563,23 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     marginTop: Spacing.md,
-    opacity: 0.8,
+    marginBottom: Spacing.lg,
+    opacity: 0.9,
     lineHeight: Typography.fontSize.base * Typography.lineHeight.relaxed,
+  },
+  heroFeatures: {
+    flexDirection: 'row',
+    gap: Spacing.lg,
+  },
+  heroFeature: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+  },
+  heroFeatureText: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.white,
+    opacity: 0.9,
   },
   searchHeader: {
     marginBottom: Spacing['2xl'],
@@ -426,8 +596,9 @@ const styles = StyleSheet.create({
   },
   searchCard: {
     margin: Spacing.lg,
-    marginTop: -Spacing['5xl'],
-    ...Shadow.lg,
+    marginTop: -Spacing['6xl'],
+    ...Shadow.xl,
+    borderRadius: BorderRadius['2xl'],
   },
   tripTypeContainer: {
     flexDirection: 'row',
@@ -535,7 +706,14 @@ const styles = StyleSheet.create({
   },
   statsSection: {
     paddingHorizontal: Spacing.lg,
-    marginTop: Spacing['2xl'],
+    marginTop: Spacing['3xl'],
+  },
+  statsTitle: {
+    fontSize: Typography.fontSize['2xl'],
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text.primary,
+    textAlign: 'center',
+    marginBottom: Spacing['2xl'],
   },
   statsGrid: {
     flexDirection: 'row',
@@ -545,6 +723,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.sm,
+  },
+  statIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: Colors.primary + '20',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Spacing.sm,
   },
   statNumber: {
     fontSize: Typography.fontSize['2xl'],
@@ -556,6 +744,13 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSize.sm,
     color: Colors.text.secondary,
     marginTop: Spacing.xs,
+    fontWeight: Typography.fontWeight.medium,
+  },
+  statDescription: {
+    fontSize: Typography.fontSize.xs,
+    color: Colors.text.tertiary,
+    marginTop: 2,
+    textAlign: 'center',
   },
   section: {
     paddingHorizontal: Spacing.lg,
@@ -563,6 +758,19 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     marginBottom: Spacing['2xl'],
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  viewAllButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+  },
+  viewAllText: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.primary,
+    fontWeight: Typography.fontWeight.medium,
   },
   sectionTitle: {
     fontSize: Typography.fontSize['2xl'],
@@ -628,11 +836,20 @@ const styles = StyleSheet.create({
     fontWeight: Typography.fontWeight.semibold,
     color: Colors.primary,
   },
-  loyaltyCard: {
+  loyaltySection: {
     margin: Spacing.lg,
-    backgroundColor: Colors.surface,
-    borderWidth: 1,
-    borderColor: Colors.primary + '20',
+    borderRadius: BorderRadius.xl,
+  },
+  loyaltyCard: {
+    backgroundColor: Colors.white,
+    borderWidth: 0,
+  },
+  loyaltyIconContainer: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   loyaltyHeader: {
     flexDirection: 'row',
@@ -644,13 +861,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   loyaltyTitle: {
-    fontSize: Typography.fontSize.xl,
+    fontSize: Typography.fontSize['2xl'],
     fontWeight: Typography.fontWeight.bold,
     color: Colors.text.primary,
   },
   loyaltySubtitle: {
     fontSize: Typography.fontSize.base,
     color: Colors.text.secondary,
+    marginTop: Spacing.xs,
+  },
+  loyaltyDescription: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.text.tertiary,
     marginTop: Spacing.xs,
   },
   loyaltyTiers: {
@@ -662,28 +884,61 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tierBadge: {
-    width: 24,
-    height: 24,
-    borderRadius: BorderRadius.full,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     marginBottom: Spacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tierBadgeText: {
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.white,
   },
   tierName: {
-    fontSize: Typography.fontSize.sm,
-    fontWeight: Typography.fontWeight.medium,
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.text.primary,
+    marginBottom: Spacing.xs,
+  },
+  tierBenefits: {
+    fontSize: Typography.fontSize.xs,
     color: Colors.text.secondary,
+    textAlign: 'center',
+  },
+  loyaltyActions: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    justifyContent: 'center',
   },
   loyaltyButton: {
-    alignSelf: 'flex-start',
+    flex: 1,
   },
   newsCard: {
     marginBottom: Spacing.lg,
-    ...Shadow.xs,
+    ...Shadow.sm,
+    flexDirection: 'row',
+    overflow: 'hidden',
+  },
+  newsImageContainer: {
+    width: 80,
+  },
+  newsImage: {
+    width: 80,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  newsContent: {
+    flex: 1,
+    padding: Spacing.lg,
   },
   newsHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.sm,
   },
   newsCategoryBadge: {
     backgroundColor: Colors.secondary + '20',
@@ -702,17 +957,17 @@ const styles = StyleSheet.create({
     color: Colors.text.tertiary,
   },
   newsTitle: {
-    fontSize: Typography.fontSize.lg,
+    fontSize: Typography.fontSize.base,
     fontWeight: Typography.fontWeight.semibold,
     color: Colors.text.primary,
-    marginBottom: Spacing.md,
-    lineHeight: Typography.fontSize.lg * Typography.lineHeight.snug,
+    marginBottom: Spacing.sm,
+    lineHeight: Typography.fontSize.base * Typography.lineHeight.snug,
   },
   newsExcerpt: {
-    fontSize: Typography.fontSize.base,
+    fontSize: Typography.fontSize.sm,
     color: Colors.text.secondary,
-    lineHeight: Typography.fontSize.base * Typography.lineHeight.relaxed,
-    marginBottom: Spacing.lg,
+    lineHeight: Typography.fontSize.sm * Typography.lineHeight.normal,
+    marginBottom: Spacing.md,
   },
   newsReadMore: {
     flexDirection: 'row',
@@ -761,5 +1016,65 @@ const styles = StyleSheet.create({
   },
   modalCancel: {
     marginTop: Spacing.lg,
+  },
+  servicesSection: {
+    paddingHorizontal: Spacing.lg,
+    marginTop: Spacing['3xl'],
+  },
+  servicesScroll: {
+    marginHorizontal: -Spacing.lg,
+    paddingHorizontal: Spacing.lg,
+  },
+  serviceCard: {
+    width: 160,
+    padding: Spacing.lg,
+    backgroundColor: Colors.white,
+    borderRadius: BorderRadius.xl,
+    marginRight: Spacing.md,
+    alignItems: 'center',
+    ...Shadow.sm,
+  },
+  serviceTitle: {
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.text.primary,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.xs,
+    textAlign: 'center',
+  },
+  serviceDescription: {
+    fontSize: Typography.fontSize.xs,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+    lineHeight: Typography.fontSize.xs * Typography.lineHeight.normal,
+  },
+  contactSection: {
+    paddingHorizontal: Spacing.lg,
+    marginTop: Spacing['3xl'],
+    marginBottom: Spacing['2xl'],
+  },
+  contactGrid: {
+    flexDirection: 'row',
+    gap: Spacing.md,
+  },
+  contactCard: {
+    flex: 1,
+    padding: Spacing.lg,
+    backgroundColor: Colors.white,
+    borderRadius: BorderRadius.lg,
+    alignItems: 'center',
+    ...Shadow.sm,
+  },
+  contactTitle: {
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.text.primary,
+    marginTop: Spacing.sm,
+    marginBottom: Spacing.xs,
+  },
+  contactInfo: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.primary,
+    fontWeight: Typography.fontWeight.medium,
   },
 });
