@@ -107,7 +107,7 @@ export default function ConfirmationScreen() {
           
           <Button
             title="Manage Booking"
-            onPress={() => router.replace('/manage' as any)}
+            onPress={() => router.replace('/(tabs)/manage')}
             variant="outline"
             size="large"
             style={styles.actionButton}

@@ -49,13 +49,13 @@ export default function ProfileScreen() {
           </Text>
           <Button
             title="Login"
-            onPress={() => router.push('/auth/login' as any)}
+            onPress={() => router.push('/auth/login')}
             size="large"
             style={styles.loginButton}
           />
           <Button
             title="Join Ibom Flyer"
-            onPress={() => router.push('/auth/register' as any)}
+            onPress={() => router.push('/auth/register')}
             variant="outline"
             size="large"
           />
