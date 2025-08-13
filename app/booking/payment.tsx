@@ -56,7 +56,7 @@ export default function PaymentScreen() {
       
       await createBooking(booking);
       setLoading(false);
-      router.push('/booking/confirmation');
+      router.push('/booking/confirmation' as any);
     }, 2000);
   };
 

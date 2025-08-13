@@ -38,7 +38,7 @@ export default function FareSelectionScreen() {
     };
     
     selectFare(fare);
-    router.push('/booking/passenger-details');
+    router.push('/booking/passenger-details' as any);
   };
 
   if (!selectedFlight) {
