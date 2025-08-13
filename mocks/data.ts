@@ -19,6 +19,7 @@ export const destinations: Destination[] = [
     attractions: ['Ibom Plaza', 'Unity Park', 'Ibom Tropicana'],
     weather: { temp: 28, condition: 'Partly Cloudy' },
     flightsPerWeek: 42,
+    price: 45000,
   },
   {
     code: 'ABV',
@@ -29,6 +30,7 @@ export const destinations: Destination[] = [
     attractions: ['Aso Rock', 'National Mosque', 'Millennium Park'],
     weather: { temp: 30, condition: 'Sunny' },
     flightsPerWeek: 28,
+    price: 52000,
   },
   {
     code: 'LOS',
@@ -39,6 +41,7 @@ export const destinations: Destination[] = [
     attractions: ['Victoria Island', 'Lekki Beach', 'National Museum'],
     weather: { temp: 29, condition: 'Humid' },
     flightsPerWeek: 35,
+    price: 48000,
   },
   {
     code: 'ACC',
@@ -49,6 +52,7 @@ export const destinations: Destination[] = [
     attractions: ['Kwame Nkrumah Park', 'Labadi Beach', 'Makola Market'],
     weather: { temp: 27, condition: 'Partly Cloudy' },
     flightsPerWeek: 7,
+    price: 125000,
   },
 ];
 
@@ -106,6 +110,7 @@ export const newsItems: NewsPost[] = [
     image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800',
     category: 'Fleet',
     publishedAt: '2025-01-10T10:00:00',
+    date: '2025-01-10T10:00:00',
     author: 'Ibom Air Communications',
   },
   {
@@ -116,6 +121,7 @@ export const newsItems: NewsPost[] = [
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800',
     category: 'Routes',
     publishedAt: '2025-01-08T14:00:00',
+    date: '2025-01-08T14:00:00',
     author: 'Ibom Air Communications',
   },
   {
@@ -126,6 +132,7 @@ export const newsItems: NewsPost[] = [
     image: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=800',
     category: 'Loyalty',
     publishedAt: '2025-01-05T09:00:00',
+    date: '2025-01-05T09:00:00',
     author: 'Ibom Air Communications',
   },
 ];

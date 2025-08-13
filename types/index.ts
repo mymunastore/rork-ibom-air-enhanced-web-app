@@ -115,6 +115,7 @@ export interface NewsPost {
   image: string;
   category: string;
   publishedAt: string;
+  date: string;
   author: string;
 }
 
@@ -140,4 +141,5 @@ export interface Destination {
     condition: string;
   };
   flightsPerWeek: number;
+  price?: number;
 }

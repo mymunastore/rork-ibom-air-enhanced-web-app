@@ -10,13 +10,27 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ArrowRightLeft, Calendar, Users, ChevronDown, Plane } from 'lucide-react-native';
-import { Colors, Typography, Spacing, BorderRadius } from '@/constants/theme';
+import { 
+  ArrowRightLeft, 
+  Calendar, 
+  Users, 
+  ChevronDown, 
+  Plane,
+  MapPin,
+  Clock,
+  Star,
+  TrendingUp,
+  Award,
+  Globe
+} from 'lucide-react-native';
+import { Colors, Typography, Spacing, BorderRadius, Shadow } from '@/constants/theme';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { airports, destinations, newsItems } from '@/mocks/data';
 import { useBooking } from '@/hooks/booking-context';
 import { SearchParams } from '@/types';
+
+
 
 export default function BookScreen() {
   const router = useRouter();
@@ -52,7 +66,7 @@ export default function BookScreen() {
     };
     
     setSearchParams(params);
-    router.push('/booking/search-results' as any);
+    router.push('/booking/search-results');
   };
 
   const totalPassengers = passengers.adults + passengers.children + passengers.infants;
@@ -60,14 +74,25 @@ export default function BookScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.logo}>Ibom Air</Text>
-          <Text style={styles.tagline}>Your Wings to the World</Text>
+        {/* Hero Section */}
+        <View style={styles.heroSection}>
+          <View style={styles.heroOverlay}>
+            <View style={styles.heroContent}>
+              <Text style={styles.logo}>Ibom Air</Text>
+              <Text style={styles.tagline}>Your Wings to the World</Text>
+              <Text style={styles.heroSubtitle}>
+                Connecting Nigeria to the world with comfort and reliability
+              </Text>
+            </View>
+          </View>
         </View>
 
         {/* Search Card */}
         <Card style={styles.searchCard}>
+          <View style={styles.searchHeader}>
+            <Text style={styles.searchTitle}>Book Your Flight</Text>
+            <Text style={styles.searchSubtitle}>Find the best deals for your journey</Text>
+          </View>
           {/* Trip Type Selector */}
           <View style={styles.tripTypeContainer}>
             <TouchableOpacity
@@ -172,28 +197,113 @@ export default function BookScreen() {
           />
         </Card>
 
+        {/* Quick Stats */}
+        <View style={styles.statsSection}>
+          <View style={styles.statsGrid}>
+            <View style={styles.statCard}>
+              <MapPin size={24} color={Colors.primary} />
+              <Text style={styles.statNumber}>7</Text>
+              <Text style={styles.statLabel}>Destinations</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Clock size={24} color={Colors.primary} />
+              <Text style={styles.statNumber}>95%</Text>
+              <Text style={styles.statLabel}>On-Time</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Star size={24} color={Colors.primary} />
+              <Text style={styles.statNumber}>4.8</Text>
+              <Text style={styles.statLabel}>Rating</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Award size={24} color={Colors.primary} />
+              <Text style={styles.statNumber}>50K+</Text>
+              <Text style={styles.statLabel}>Members</Text>
+            </View>
+          </View>
+        </View>
+
         {/* Popular Destinations */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Popular Destinations</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Where We Fly</Text>
+            <Text style={styles.sectionSubtitle}>Discover our network of destinations</Text>
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.destinationsScroll}>
             {destinations.map((dest) => (
               <TouchableOpacity key={dest.code} style={styles.destinationCard}>
-                <View style={styles.destinationImage} />
-                <Text style={styles.destinationName}>{dest.name}</Text>
-                <Text style={styles.destinationFlights}>{dest.flightsPerWeek} flights/week</Text>
+                <View style={styles.destinationImageContainer}>
+                  <View style={styles.destinationImage}>
+                    <Globe size={32} color={Colors.white} />
+                  </View>
+                  <View style={styles.destinationBadge}>
+                    <Text style={styles.destinationBadgeText}>{dest.code}</Text>
+                  </View>
+                </View>
+                <View style={styles.destinationInfo}>
+                  <Text style={styles.destinationName}>{dest.name}</Text>
+                  <Text style={styles.destinationFlights}>{dest.flightsPerWeek} flights/week</Text>
+                  <Text style={styles.destinationPrice}>From ₦{dest.price?.toLocaleString() || '45,000'}</Text>
+                </View>
               </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
 
-        {/* Latest News */}
+        {/* Ibom Flyer Program */}
+        <Card style={styles.loyaltyCard}>
+          <View style={styles.loyaltyHeader}>
+            <Award size={32} color={Colors.tierGreen} />
+            <View style={styles.loyaltyContent}>
+              <Text style={styles.loyaltyTitle}>Join Ibom Flyer</Text>
+              <Text style={styles.loyaltySubtitle}>Earn points and enjoy exclusive benefits</Text>
+            </View>
+          </View>
+          <View style={styles.loyaltyTiers}>
+            <View style={styles.tierItem}>
+              <View style={[styles.tierBadge, { backgroundColor: Colors.tierGreen }]} />
+              <Text style={styles.tierName}>Green</Text>
+            </View>
+            <View style={styles.tierItem}>
+              <View style={[styles.tierBadge, { backgroundColor: Colors.tierOrange }]} />
+              <Text style={styles.tierName}>Orange</Text>
+            </View>
+            <View style={styles.tierItem}>
+              <View style={[styles.tierBadge, { backgroundColor: Colors.tierTop }]} />
+              <Text style={styles.tierName}>Top</Text>
+            </View>
+          </View>
+          <Button
+            title="Learn More"
+            onPress={() => {}}
+            variant="outline"
+            size="small"
+            style={styles.loyaltyButton}
+          />
+        </Card>
+
+        {/* Latest Updates */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Latest News</Text>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Latest Updates</Text>
+            <Text style={styles.sectionSubtitle}>Stay informed with our latest news</Text>
+          </View>
           {newsItems.slice(0, 2).map((news) => (
             <Card key={news.id} style={styles.newsCard}>
-              <Text style={styles.newsCategory}>{news.category}</Text>
+              <View style={styles.newsHeader}>
+                <View style={styles.newsCategoryBadge}>
+                  <Text style={styles.newsCategory}>{news.category}</Text>
+                </View>
+                <Text style={styles.newsDate}>
+                  {new Date(news.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                </Text>
+              </View>
               <Text style={styles.newsTitle}>{news.title}</Text>
               <Text style={styles.newsExcerpt}>{news.excerpt}</Text>
+              <TouchableOpacity style={styles.newsReadMore}>
+                <Text style={styles.newsReadMoreText}>Read More</Text>
+                <TrendingUp size={14} color={Colors.primary} />
+              </TouchableOpacity>
             </Card>
           ))}
         </View>
@@ -266,24 +376,58 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-  header: {
-    alignItems: 'center',
-    paddingVertical: Spacing.xl,
+  heroSection: {
+    height: 280,
     backgroundColor: Colors.primary,
+    position: 'relative',
+  },
+  heroOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(10, 108, 59, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: Spacing['3xl'],
+  },
+  heroContent: {
+    alignItems: 'center',
   },
   logo: {
-    fontSize: Typography.fontSize['3xl'],
-    fontWeight: 'bold' as const,
+    fontSize: Typography.fontSize['5xl'],
+    fontWeight: Typography.fontWeight.bold,
     color: Colors.white,
+    letterSpacing: -1,
   },
   tagline: {
-    fontSize: Typography.fontSize.sm,
+    fontSize: Typography.fontSize.lg,
     color: Colors.white,
-    marginTop: Spacing.xs,
+    marginTop: Spacing.sm,
+    opacity: 0.9,
+  },
+  heroSubtitle: {
+    fontSize: Typography.fontSize.base,
+    color: Colors.white,
+    textAlign: 'center',
+    marginTop: Spacing.md,
+    opacity: 0.8,
+    lineHeight: Typography.fontSize.base * Typography.lineHeight.relaxed,
+  },
+  searchHeader: {
+    marginBottom: Spacing['2xl'],
+  },
+  searchTitle: {
+    fontSize: Typography.fontSize['2xl'],
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text.primary,
+    marginBottom: Spacing.xs,
+  },
+  searchSubtitle: {
+    fontSize: Typography.fontSize.base,
+    color: Colors.text.secondary,
   },
   searchCard: {
-    margin: Spacing.md,
-    marginTop: -Spacing.xl,
+    margin: Spacing.lg,
+    marginTop: -Spacing['5xl'],
+    ...Shadow.lg,
   },
   tripTypeContainer: {
     flexDirection: 'row',
@@ -389,53 +533,196 @@ const styles = StyleSheet.create({
   searchButton: {
     marginTop: Spacing.sm,
   },
+  statsSection: {
+    paddingHorizontal: Spacing.lg,
+    marginTop: Spacing['2xl'],
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  statCard: {
+    alignItems: 'center',
+    flex: 1,
+    paddingVertical: Spacing.lg,
+  },
+  statNumber: {
+    fontSize: Typography.fontSize['2xl'],
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text.primary,
+    marginTop: Spacing.sm,
+  },
+  statLabel: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.text.secondary,
+    marginTop: Spacing.xs,
+  },
   section: {
-    padding: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    marginTop: Spacing['3xl'],
+  },
+  sectionHeader: {
+    marginBottom: Spacing['2xl'],
   },
   sectionTitle: {
-    fontSize: Typography.fontSize.xl,
-    fontWeight: '600' as const,
+    fontSize: Typography.fontSize['2xl'],
+    fontWeight: Typography.fontWeight.bold,
     color: Colors.text.primary,
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.xs,
+  },
+  sectionSubtitle: {
+    fontSize: Typography.fontSize.base,
+    color: Colors.text.secondary,
+  },
+  destinationsScroll: {
+    marginHorizontal: -Spacing.lg,
+    paddingHorizontal: Spacing.lg,
   },
   destinationCard: {
-    marginRight: Spacing.md,
-    width: 150,
+    marginRight: Spacing.lg,
+    width: 180,
+    backgroundColor: Colors.surfaceElevated,
+    borderRadius: BorderRadius.xl,
+    ...Shadow.sm,
+    overflow: 'hidden',
+  },
+  destinationImageContainer: {
+    position: 'relative',
   },
   destinationImage: {
-    height: 100,
-    backgroundColor: Colors.gray[200],
-    borderRadius: BorderRadius.md,
-    marginBottom: Spacing.sm,
+    height: 120,
+    backgroundColor: Colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  destinationBadge: {
+    position: 'absolute',
+    top: Spacing.md,
+    right: Spacing.md,
+    backgroundColor: Colors.white,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    borderRadius: BorderRadius.sm,
+  },
+  destinationBadgeText: {
+    fontSize: Typography.fontSize.xs,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.primary,
+  },
+  destinationInfo: {
+    padding: Spacing.lg,
   },
   destinationName: {
-    fontSize: Typography.fontSize.base,
-    fontWeight: '500' as const,
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.semibold,
     color: Colors.text.primary,
+    marginBottom: Spacing.xs,
   },
   destinationFlights: {
     fontSize: Typography.fontSize.sm,
     color: Colors.text.secondary,
+    marginBottom: Spacing.xs,
+  },
+  destinationPrice: {
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.primary,
+  },
+  loyaltyCard: {
+    margin: Spacing.lg,
+    backgroundColor: Colors.surface,
+    borderWidth: 1,
+    borderColor: Colors.primary + '20',
+  },
+  loyaltyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Spacing.lg,
+  },
+  loyaltyContent: {
+    marginLeft: Spacing.lg,
+    flex: 1,
+  },
+  loyaltyTitle: {
+    fontSize: Typography.fontSize.xl,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text.primary,
+  },
+  loyaltySubtitle: {
+    fontSize: Typography.fontSize.base,
+    color: Colors.text.secondary,
+    marginTop: Spacing.xs,
+  },
+  loyaltyTiers: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: Spacing.lg,
+  },
+  tierItem: {
+    alignItems: 'center',
+  },
+  tierBadge: {
+    width: 24,
+    height: 24,
+    borderRadius: BorderRadius.full,
+    marginBottom: Spacing.sm,
+  },
+  tierName: {
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.medium,
+    color: Colors.text.secondary,
+  },
+  loyaltyButton: {
+    alignSelf: 'flex-start',
   },
   newsCard: {
+    marginBottom: Spacing.lg,
+    ...Shadow.xs,
+  },
+  newsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: Spacing.md,
+  },
+  newsCategoryBadge: {
+    backgroundColor: Colors.secondary + '20',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+    borderRadius: BorderRadius.full,
   },
   newsCategory: {
     fontSize: Typography.fontSize.xs,
     color: Colors.secondary,
-    fontWeight: '600' as const,
-    marginBottom: Spacing.xs,
+    fontWeight: Typography.fontWeight.semibold,
+    textTransform: 'uppercase',
+  },
+  newsDate: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.text.tertiary,
   },
   newsTitle: {
-    fontSize: Typography.fontSize.base,
-    fontWeight: '600' as const,
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.semibold,
     color: Colors.text.primary,
-    marginBottom: Spacing.xs,
+    marginBottom: Spacing.md,
+    lineHeight: Typography.fontSize.lg * Typography.lineHeight.snug,
   },
   newsExcerpt: {
-    fontSize: Typography.fontSize.sm,
+    fontSize: Typography.fontSize.base,
     color: Colors.text.secondary,
-    lineHeight: Typography.fontSize.sm * Typography.lineHeight.normal,
+    lineHeight: Typography.fontSize.base * Typography.lineHeight.relaxed,
+    marginBottom: Spacing.lg,
+  },
+  newsReadMore: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+  },
+  newsReadMoreText: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.primary,
+    fontWeight: Typography.fontWeight.medium,
   },
   modal: {
     position: 'absolute',
